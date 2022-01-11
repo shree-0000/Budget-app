@@ -37,47 +37,44 @@ class Category:
             return True
 
     def __str__(self):
-        print(f"{self.category:*^30}")
-
-        def print_it(self):
-            for item in self.ledger:
-
-                print(f"{item['description'][:23]: <23}{item['amount']: >7.2f}")
-            else:
-                print(f"Total: {self.get_balance(): .2f}")
-        
-        print_it(self)
-        return ""
+        f_string = f"{self.category:*^30}\n"
+        for item in self.ledger:
+            f_string += f"{item['description'][:23]: <23}{item['amount']: >7.2f}\n"
+        else:
+            f_string += f"Total: {self.get_balance():.2f}\n"
+        return f_string
 
 #bar plot function
-def create_spend_chart(category_list) -> None:
+def create_spend_chart(categories) -> None:
 
     total_balance = 0
     per = 0
-    for each_category in category_list:
+    for each_category in categories:
         total_balance += each_category.total_spend
     y_axes_indices = ["100|", "90|", "80|", "70|", "60|", "50|", "40|", "30|", "20|", "10|", "0|"]
-    print("Percentage spent by category")
+    Total_string = "Percentage spent by category\n"
 
     for i in range(11):
-        f_string = f"{y_axes_indices[i]: >4}"
-        for each_category in category_list:
+        Total_string += f"{y_axes_indices[i]: >4}"
+        for each_category in categories:
             per = int((10*each_category.total_spend)/(total_balance))
-            if (10-per) > i: f_string += '   '
-            else: f_string += ' o '
-        print(f_string)
+            if (10-per) > i: Total_string += '   '
+            else: Total_string += ' o '
+        Total_string += "\n"
     else:
-        print("    " + "-"*(3*len(category_list)))
+        str1 = "    " + "-"*(3*len(categories)+1) +"\n"
+        Total_string += str1
     
-    max_len = max(len(x.category) for x in category_list)
-    str = []
-    for ele in category_list:
-        str.append(ele.category.ljust(max_len, ' '))
+    max_len = max(len(x.category) for x in categories)
+    str2 = []
+    for ele in categories:
+        str2.append(ele.category.ljust(max_len, ' '))
     for i in range(max_len):
-        f_str = "    "
-        for ele in str:
-            f_str += f" {ele[i]} "
-        print(f_str)
+        Total_string += "    "
+        for ele in str2:
+            Total_string += f" {ele[i]} "
+        Total_string += "\n"
+    return Total_string
 
 
 #Instant tion
@@ -101,4 +98,4 @@ print(clothing)
 print(entertainment)
 
 #creating bar plot
-create_spend_chart([food, entertainment, clothing])
+print(create_spend_chart([food, entertainment, clothing]))
