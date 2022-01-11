@@ -52,18 +52,12 @@ class Category:
 #bar plot function
 def create_spend_chart(category_list) -> None:
 
-    bar_dict = {}
     total_balance = 0
     per = 0
-
     for each_category in category_list:
         total_balance += each_category.total_spend
-
-
-
     y_axes_indices = ["100|", "90|", "80|", "70|", "60|", "50|", "40|", "30|", "20|", "10|", "0|"]
     print("Percentage spent by category")
-
 
     for i in range(11):
         f_string = f"{y_axes_indices[i]: >4}"
@@ -74,10 +68,6 @@ def create_spend_chart(category_list) -> None:
         print(f_string)
     else:
         print("    " + "-"*(3*len(category_list)))
-
-
-
-
     
     max_len = max(len(x.category) for x in category_list)
     str = []
@@ -90,13 +80,12 @@ def create_spend_chart(category_list) -> None:
         print(f_str)
 
 
-
-
+#Instant tion
 food = Category("food")
 clothing = Category("clothing")
 entertainment = Category("entertainment")
 
-
+#some operations
 food.deposit(1000, "initial deposite")
 entertainment.deposit(1000, "initial deposite")
 food.transfer(200, clothing)
@@ -106,41 +95,10 @@ entertainment.transfer(300, clothing)
 clothing.transfer(100, food)
 entertainment.withdraw(200, "watched radhe")
 
-
-
+#printing output
 print(food)
 print(clothing)
 print(entertainment)
-#write the bar plot function
 
+#creating bar plot
 create_spend_chart([food, entertainment, clothing])
-
-
-
-
-'''
-    for each_category in category_list:
-        per = int((10*each_category.total_spend)/(total_balance)) #percentage spent in fraction*10
-        bar_dict[each_category.category] = []
-        for i in range(11):
-            if (10-per) > i:
-                bar_dict[each_category.category].append('   ')
-            else:
-                bar_dict[each_category.category].append(' o ')
-
-'''
-
-
-
-
-
-'''
-    for i in range(11):
-        f_string = f"{y_axes_indices[i]: >4}"
-        for each_category in category_list:
-            f_string += bar_dict[each_category.category][i]
-        print(f_string)
-    else:
-        print("    " + "-"*(3*len(category_list)))
-
-'''
